@@ -1,4 +1,4 @@
-package controllers
+package presentation.controllers
 
 import javax.inject.Inject
 

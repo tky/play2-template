@@ -10,6 +10,7 @@ import scala.concurrent.Future
 
 case class DocumentWrapper(doc: Document) {
   def select(selector: String): Elements = doc.select(selector)
+  def title: String = doc.title()
 }
 
 trait DomTestHelper {
