@@ -38,6 +38,17 @@ class UserRepository @Inject() ()(
     }
   }
 
+  def all: Future[Seq[User]] = {
+    val fUsers = db.run(Users.result)
+    val fTasks = db.run(Tasks.result)
+
+    for {
+      users <- fUsers
+      tasks <- fTasks
+      taskMap = tasks.groupBy(_.userId)
+    } yield users.map { u => assemble(u, taskMap.get(u.id).getOrElse(Nil)) }
+  }
+
   def create(name: String, email: String): Future[Int] = {
     val user = UserRow(id = 0, name = name, email = email)
     db.run(Users returning Users.map(_.id) += user)

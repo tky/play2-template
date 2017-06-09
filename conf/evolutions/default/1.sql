@@ -14,7 +14,7 @@ create table tasks (
  user_id int NOT NULL,
  name varchar(100) NOT NULL,
  description text,
- created_at datetime NOT NULL,
+ created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
  CONSTRAINT tasks_fk_1 FOREIGN KEY (user_id) REFERENCES users(id),
  PRIMARY KEY (id)
 );
