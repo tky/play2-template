@@ -8,11 +8,17 @@ var cssnext = require('postcss-cssnext');
 var watch = require('gulp-watch');
 var uglify = require("gulp-uglify");
 var clean = require('gulp-clean');
+var typescript = require('gulp-typescript');
 
 gulp.task('scripts', function(cb) {
-  return gulp.src('./scripts/*.js')
-    .pipe(uglify())
+  return gulp.src('./scripts/*.ts')
+    .pipe(typescript({
+      target: 'ES5',
+      removeComments: true
+    }))
+    .js
     .pipe(concat('all.min.js'))
+    .pipe(uglify())
     .pipe(gulp.dest('../public/scripts/'));
 });
 
