@@ -1,3 +1,4 @@
 GET  /          presentation.controllers.Application.index
 GET  /users     presentation.controllers.UserController.index
 
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

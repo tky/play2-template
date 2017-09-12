@@ -1,8 +1,10 @@
+import PlayGulp._
+
 name := """play-template"""
 
 version := "1.0-SNAPSHOT"
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
+lazy val root = (project in file(".")).enablePlugins(PlayScala).settings(playGulpSettings)
 
 scalaVersion := "2.11.11"
 
