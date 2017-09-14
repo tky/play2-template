@@ -1,46 +1,26 @@
 'use strict';
 
-var gulp = require('gulp');
-var concat = require('gulp-concat');
-var sass = require('gulp-sass');
-var postcss = require('gulp-postcss');
-var cssnext = require('postcss-cssnext');
-var watch = require('gulp-watch');
-var uglify = require("gulp-uglify");
-var clean = require('gulp-clean');
-var typescript = require('gulp-typescript');
+const gulp = require('gulp');
+const concat = require('gulp-concat');
+const sass = require('gulp-sass');
+const postcss = require('gulp-postcss');
+const cssnext = require('postcss-cssnext');
+const watch = require('gulp-watch');
+const uglify = require('gulp-uglify');
+const clean = require('gulp-clean');
+const typescript = require('gulp-typescript');
+const webpackStream = require('webpack-stream');
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.config');
+const plumber = require('gulp-plumber');
 
-gulp.task('scripts', function(cb) {
-  return gulp.src('./scripts/*.ts')
-    .pipe(typescript({
-      target: 'ES5',
-      removeComments: true
-    }))
-    .js
-    .pipe(concat('all.min.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest('../public/scripts/'));
+gulp.task('webpack', () => {
+  return webpackStream(webpackConfig, webpack).pipe(gulp.dest('../public/scripts'));
 });
 
-gulp.task('scss', function() {
-  var processors = [
-      cssnext()
-  ];
-  return gulp.src('./stylesheets/*.scss')
-    .pipe(sass())
-    .pipe(postcss(processors))
-    .pipe(concat('all.min.css'))
-    .pipe(gulp.dest('../public/stylesheets'));
+gulp.task('watch', () => {
+  gulp.watch('./scripts/*.ts');
 });
 
-gulp.task('watch', function(){
-    gulp.watch('./stylesheets/*.scss', ['scss']);
-    gulp.watch('./scripts/*.js', ['scripts']);
-});
-
-
-gulp.task('clean', function() {
-});
-
-gulp.task('default', ['scripts', 'scss', 'watch']);
-gulp.task('build', ['scripts', 'scss']);
+gulp.task('build', ['webpack']);
+gulp.task('default', ['webpack']);
