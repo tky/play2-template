@@ -18,9 +18,21 @@ gulp.task('webpack', () => {
   return webpackStream(webpackConfig, webpack).pipe(gulp.dest('../public/scripts'));
 });
 
-gulp.task('watch', () => {
-  gulp.watch('./scripts/*.ts');
+gulp.task('scss', function() {
+  var processors = [
+      cssnext()
+  ];
+  return gulp.src('./stylesheets/*.scss')
+    .pipe(sass())
+    .pipe(postcss(processors))
+    .pipe(concat('all.min.css'))
+    .pipe(gulp.dest('../public/stylesheets'));
 });
 
-gulp.task('build', ['webpack']);
-gulp.task('default', ['webpack']);
+gulp.task('watch', () => {
+  gulp.watch('./scripts/*.ts', ['webpack']);
+  gulp.watch('./stylesheets/*.scss', ['scss']);
+});
+
+gulp.task('build', ['webpack', 'scss']);
+gulp.task('default', ['webpack', 'scss', 'watch']);
