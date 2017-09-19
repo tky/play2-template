@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import infrastructure.rows.TaskRow
 
 trait TaskTable extends TableBase {
-  import dbConfig.driver.api._
+  import dbConfig.profile.api._
 
   import MyDriver._
 

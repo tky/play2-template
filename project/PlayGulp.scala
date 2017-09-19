@@ -7,12 +7,10 @@ import com.typesafe.sbt.packager.universal.UniversalPlugin.autoImport._
 import com.typesafe.sbt.web.Import._
 
 object PlayGulp {
-
   lazy val gulpDirectory = SettingKey[File]("gulp-directory", "gulp directory")
   lazy val gulpFile = SettingKey[String]("gulp-file", "gulpfile")
   lazy val gulp = InputKey[Unit]("gulp", "Task to run gulp")
   lazy val gulpBuild = TaskKey[Int]("gulp-dist", "Task to run dist gulp")
-  lazy val gulpClean = TaskKey[Unit]("gulp-clean", "Task to run gulp clean")
   lazy val gulpTest = TaskKey[Unit]("gulp-test", "Task to run gulp test")
 
   val playGulpSettings: Seq[Setting[_]] = Seq(
@@ -37,12 +35,6 @@ object PlayGulp {
       } else throw new Exception("gulp failed")
     },
 
-    gulpClean := {
-      val base = (gulpDirectory in Compile).value
-      val gulpfileName = (gulpFile in Compile).value
-      val result = runGulp(base, gulpfileName, List("clean")).exitValue()
-      if (result != 0) throw new Exception("gulp failed")
-    },
 
     gulpTest := {
       val base = (gulpDirectory in Compile).value
@@ -55,16 +47,10 @@ object PlayGulp {
 
     stage <<= stage dependsOn gulpBuild,
 
-    clean <<= clean dependsOn gulpClean,
-
-    //(test in Test) <<= (test in Test) dependsOn gulpTest,
-
-    // Builds And Starts the gulp watch task before sbt run
     playRunHooks <+= (gulpDirectory, gulpFile).map {
       (base, fileName) => GulpWatch(base, fileName)
     },
 
-    // Allows all the specified commands below to be run within sbt in addition to gulp
     commands <++= gulpDirectory {
       base =>
         Seq(

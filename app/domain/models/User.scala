@@ -25,7 +25,7 @@ class UserRepository @Inject() ()(
     with TaskTable {
 
   import scala.concurrent.ExecutionContext.Implicits.global
-  import dbConfig.driver.api._
+  import dbConfig.profile.api._
 
   def find(id: Int): Future[Option[User]] = {
     val fUser = db.run(Users.filter(_.id === id).result.headOption)

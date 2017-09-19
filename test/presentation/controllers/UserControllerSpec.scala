@@ -11,7 +11,7 @@ class UserControllerSpec extends Specification {
 
   "UserController" should {
     "index" should {
-      "show all users" in new WithApplication(FakeApplication()) {
+      "show all users" in new WithApplication() {
         val result = controller.index().apply(FakeRequest())
         val doc = parse(contentAsString(result))
         doc.select("tr") must have size 2

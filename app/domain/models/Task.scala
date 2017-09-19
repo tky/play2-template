@@ -24,7 +24,7 @@ class TaskRepository @Inject() ()(
     val dbConfigProvider: DatabaseConfigProvider
 ) extends Repository with TaskTable {
 
-  import dbConfig.driver.api._
+  import dbConfig.profile.api._
 
   def create(userId: Int, name: String, description: Option[String]): Future[Int] = {
     val task = TaskRow(id = 0, userId = userId, name = name, description = description, createdAt = DateTime.now())

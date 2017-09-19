@@ -1,7 +1,7 @@
 package infrastructure
 
-import slick.driver.JdbcProfile
-import slick.backend.DatabaseConfig
+import slick.jdbc.JdbcProfile
+import slick.basic.DatabaseConfig
 import play.api.db.slick.DatabaseConfigProvider
 
 import scala.concurrent.Future

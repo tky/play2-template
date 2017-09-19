@@ -14,7 +14,7 @@ class UserRepositorySpec extends Specification {
   val taskRepo = Injector.inject[TaskRepository]
 
   "UserRepository" should {
-    "work #create and #find" in new WithApplication(FakeApplication()) {
+    "work #create and #find" in new WithApplication() {
       val id = executeAndWait(userRepo.create("test", "test@gmail.com"))
       val found = executeAndWait(userRepo.find(id)).get
 
@@ -23,7 +23,7 @@ class UserRepositorySpec extends Specification {
       found.email mustBe "test@gmail.com"
     }
 
-    "append tasks and find it" in new WithApplication(FakeApplication()) {
+    "append tasks and find it" in new WithApplication() {
       val id = executeAndWait(userRepo.create("test", "test@gmail.com"))
       executeAndWait(taskRepo.create(id, "chores", Some("get rid of dust.")))
 

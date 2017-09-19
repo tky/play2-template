@@ -3,7 +3,7 @@ package infrastructure.tables
 import infrastructure.rows.UserRow
 
 trait UserTable extends TableBase {
-  import dbConfig.driver.api._
+  import dbConfig.profile.api._
 
   val Users = TableQuery[UserTable]
 
