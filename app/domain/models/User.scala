@@ -14,15 +14,13 @@ case class User(
   id: Int,
   name: String,
   email: String,
-  tasks: Seq[Task]
-)
+  tasks: Seq[Task])
 
 @Singleton
 class UserRepository @Inject() ()(
-  val dbConfigProvider: DatabaseConfigProvider
-) extends Repository
-    with UserTable
-    with TaskTable {
+  val dbConfigProvider: DatabaseConfigProvider) extends Repository
+  with UserTable
+  with TaskTable {
 
   import scala.concurrent.ExecutionContext.Implicits.global
   import dbConfig.profile.api._
@@ -59,7 +57,6 @@ class UserRepository @Inject() ()(
       id = user.id,
       name = user.name,
       email = user.email,
-      tasks = tasks.map { t => Task(id = t.id, name = t.name, description = t.description, createdAt = t.createdAt) }
-    )
+      tasks = tasks.map { t => Task(id = t.id, name = t.name, description = t.description, createdAt = t.createdAt) })
   }
 }

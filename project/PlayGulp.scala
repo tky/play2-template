@@ -1,5 +1,6 @@
 import sbt._
 import sbt.Keys._
+import scala.sys.process._
 import play.sbt.PlayRunHook
 import play.sbt.PlayImport.PlayKeys._
 import play.twirl.sbt.Import.TwirlKeys
@@ -11,12 +12,10 @@ object PlayGulp {
   lazy val gulpFile = SettingKey[String]("gulp-file", "gulpfile")
   lazy val gulp = InputKey[Unit]("gulp", "Task to run gulp")
   lazy val gulpBuild = TaskKey[Int]("gulp-dist", "Task to run dist gulp")
-  lazy val gulpTest = TaskKey[Unit]("gulp-test", "Task to run gulp test")
 
   val playGulpSettings: Seq[Setting[_]] = Seq(
 
-    // Specifies the location of the root directory of the Gulp project relative to the Play app root
-    gulpDirectory <<= (baseDirectory in Compile) { _ / "ui" },
+    gulpDirectory := (baseDirectory in Compile) { _ / "ui" }.value,
 
     gulpFile := "gulpfile.js",
 
@@ -36,29 +35,19 @@ object PlayGulp {
     },
 
 
-    gulpTest := {
-      val base = (gulpDirectory in Compile).value
-      val gulpfileName = (gulpFile in Compile).value
-      val result = runGulp(base, gulpfileName, List("test")).exitValue()
-      if (result != 0) throw new Exception("gulp failed")
-    },
+    dist := (dist dependsOn gulpBuild).value,
 
-    dist <<= dist dependsOn gulpBuild,
+    stage := (stage dependsOn gulpBuild).value,
 
-    stage <<= stage dependsOn gulpBuild,
+    playRunHooks += GulpWatch(gulpDirectory.value, gulpFile.value)
+    ,
 
-    playRunHooks <+= (gulpDirectory, gulpFile).map {
-      (base, fileName) => GulpWatch(base, fileName)
-    },
-
-    commands <++= gulpDirectory {
+    commands ++= gulpDirectory {
       base =>
         Seq(
           "npm",
-          "bower",
-          "yo"
         ).map(cmd(_, base))
-    }
+    }.value
   )
 
   private def runGulp(base: sbt.File, fileName: String, args: List[String] = List.empty): Process = {

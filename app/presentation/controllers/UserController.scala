@@ -2,17 +2,13 @@ package presentation.controllers
 
 import javax.inject.Inject
 
-import play.api.mvc.{ Action, Controller }
-
-import scala.concurrent.Future
-
+import play.api.mvc._
+import scala.concurrent.{ ExecutionContext, Future }
 import domain.models.{ User, UserRepository }
 
 class UserController @Inject() (
-    userRepo: UserRepository
-) extends Controller {
-
-  import scala.concurrent.ExecutionContext.Implicits.global
+  cc: ControllerComponents,
+  userRepo: UserRepository)(implicit ec: ExecutionContext) extends AbstractController(cc) {
 
   def index = Action.async { implicit rs =>
     val fUsers = userRepo.all

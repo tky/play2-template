@@ -7,5 +7,4 @@ case class TaskRow(
   userId: Int,
   name: String,
   description: Option[String],
-  createdAt: DateTime
-)
+  createdAt: DateTime)

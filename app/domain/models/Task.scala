@@ -16,13 +16,11 @@ case class Task(
   id: Int,
   name: String,
   description: Option[String],
-  createdAt: DateTime
-)
+  createdAt: DateTime)
 
 @Singleton
 class TaskRepository @Inject() ()(
-    val dbConfigProvider: DatabaseConfigProvider
-) extends Repository with TaskTable {
+  val dbConfigProvider: DatabaseConfigProvider) extends Repository with TaskTable {
 
   import dbConfig.profile.api._
 
