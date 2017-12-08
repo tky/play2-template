@@ -1,3 +1,6 @@
+@import CallEnrichment._
+
 @main("index") {
   <p>hello world</p>
+  @presentation.controllers.routes.UserController.index.withParams(("p", "1"))
 }
