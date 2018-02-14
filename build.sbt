@@ -21,6 +21,7 @@ libraryDependencies ++= Seq(
     "com.github.tototoshi" %% "slick-joda-mapper" % "2.3.0",
     "com.h2database" % "h2" % "1.4.192",
     "io.lemonlabs" %% "scala-uri" % "0.5.0",
+    "javax.xml.bind" % "jaxb-api" % "2.3.0",
     "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.0" % "test",
     "org.jsoup" % "jsoup" % "1.10.1" % "test",
     specs2 % Test
