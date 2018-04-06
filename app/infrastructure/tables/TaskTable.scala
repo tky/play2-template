@@ -8,7 +8,7 @@ trait TaskTable extends TableBase {
 
   import MyDriver._
 
-  val Tasks = TableQuery[TaskTable]
+  object Tasks extends TableQuery(new TaskTable(_))
 
   class TaskTable(tag: Tag) extends Table[TaskRow](tag, "tasks") {
     def id = column[Int]("id", O.AutoInc, O.PrimaryKey)

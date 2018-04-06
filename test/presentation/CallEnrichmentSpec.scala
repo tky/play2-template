@@ -4,25 +4,25 @@ import play.api.mvc._
 import play.api.test.Helpers._
 import play.api.test._
 
-import helper.Specification
+import helper.SuppecSupport
 
-class CallEnrichmentSpec extends Specification {
+class CallEnrichmentSpec extends SuppecSupport {
   import CallEnrichment._
   "CallEnrichment" should {
     "withParams" should {
       "works with a parameter" in {
         val call = new Call("GET", "https://sample.co.jp")
-        call.withParams(("q", "test")).url mustBe ("https://sample.co.jp?q=test")
+        call.withParams(("q", "test")).url must equalTo("https://sample.co.jp?q=test")
       }
 
       "works with multi paramters" in {
         val call = new Call("GET", "https://sample.co.jp")
-        call.withParams(("q", "test"), ("page", "1")).url mustBe ("https://sample.co.jp?q=test&page=1")
+        call.withParams(("q", "test"), ("page", "1")).url must equalTo("https://sample.co.jp?q=test&page=1")
       }
 
       "works a url with query" in {
         val call = new Call("GET", "https://sample.co.jp?q=test")
-        call.withParams(("page", "1")).url mustBe ("https://sample.co.jp?q=test&page=1")
+        call.withParams(("page", "1")).url must equalTo("https://sample.co.jp?q=test&page=1")
       }
     }
   }
