@@ -36,3 +36,5 @@ javaOptions in Test += "-Dconfig.file=conf/test.conf"
 TwirlKeys.templateImports += "domain.models._"
 
 TwirlKeys.templateImports += "presentation._"
+
+packageName in Universal := "play2-template"
