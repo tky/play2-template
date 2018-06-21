@@ -6,7 +6,7 @@ version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala).settings(playGulpSettings)
 
-scalaVersion := "2.12.5"
+scalaVersion := "2.12.6"
 
 routesGenerator := InjectedRoutesGenerator
 
