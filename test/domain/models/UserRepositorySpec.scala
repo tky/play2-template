@@ -7,9 +7,9 @@ import play.api.test._
 import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
-import helper.{ SuppecSupport, Injector }
+import helper.{ SpecificationHelper, Injector }
 
-class UserRepositorySpec extends SuppecSupport {
+class UserRepositorySpec extends SpecificationHelper {
   val userRepo = Injector.inject[UserRepository]
   val taskRepo = Injector.inject[TaskRepository]
 

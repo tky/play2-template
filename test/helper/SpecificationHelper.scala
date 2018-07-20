@@ -13,7 +13,7 @@ import scala.concurrent.{ Await, Awaitable }
 import scala.concurrent.duration.Duration
 
 // https://www.playframework.com/documentation/2.6.x/api/scala/index.html#play.api.test.PlaySpecification
-trait SuppecSupport extends PlaySpecification with Results with DomTestHelper with After {
+trait SpecificationHelper extends PlaySpecification with Results with DomTestHelper with After {
 
   override def after = EvolutionHelper.clean()
 

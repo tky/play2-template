@@ -4,9 +4,9 @@ import play.api.mvc._
 import play.api.test.Helpers._
 import play.api.test._
 
-import helper.SuppecSupport
+import helper.SpecificationHelper
 
-class CallEnrichmentSpec extends SuppecSupport {
+class CallEnrichmentSpec extends SpecificationHelper {
   import CallEnrichment._
   "CallEnrichment" should {
     "withParams" should {

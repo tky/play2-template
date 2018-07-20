@@ -2,11 +2,11 @@ package presentation.controllers
 import play.api.mvc._
 import play.api.test.Helpers._
 import play.api.test._
-import helper.{ SuppecSupport, Injector }
+import helper.{ SpecificationHelper, Injector }
 
 import scala.concurrent.Future
 
-class UserControllerSpec extends SuppecSupport {
+class UserControllerSpec extends SpecificationHelper {
   val controller = Injector.inject[UserController]
   "UserController" should {
     "index" should {
